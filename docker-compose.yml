@@ -4,8 +4,20 @@ services:
     apache:
         build: "./apache"
         volumes:
+            # Shed assumes that you want to use the parent folder of shed as
+            # your docroot. If you do not, you should change .. below to be
+            # something else. For example,
+            #
+            #     - "/home/kevin/Sites:/var/www"
+            #
             - "..:/var/www"
         ports:
+            # If you would like for your sites to be available on a different
+            # port than port 80, change the first number here to something
+            # else. For example,
+            #
+            #     - "8000:80"
+            #
             - "80:80"
         links:
             - postgres
