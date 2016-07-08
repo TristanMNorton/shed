@@ -1,6 +1,6 @@
 FROM php:7.0-apache
 COPY /000-shared.conf /etc/apache2/sites-enabled/000-shared.conf
-RUN a2enmod vhost_alias
+RUN a2enmod rewrite vhost_alias
 RUN apt-get update
 RUN apt-get install -y \
     build-essential \
