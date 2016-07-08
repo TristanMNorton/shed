@@ -1,0 +1,24 @@
+version: "2"
+
+services:
+    apache:
+        build: "./apache"
+        volumes:
+            - "..:/var/www"
+        ports:
+            - "80:80"
+        links:
+            - postgres
+            - mysql
+    postgres:
+        image: "postgres:latest"
+        environment:
+            PGDATA: "/var/lib/postgresql/data/pgdata"
+        volumes:
+            - "./data/postgres:/var/lib/postgresql/data/pgdata"
+    mysql:
+        image: "mysql:latest"
+        environment:
+            MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+        volumes:
+            - "./data/mysql:/var/lib/mysql"
