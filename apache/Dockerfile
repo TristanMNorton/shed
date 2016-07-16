@@ -1,5 +1,4 @@
 FROM php:7.0-apache
-COPY /000-shared.conf /etc/apache2/sites-enabled/000-shared.conf
 RUN a2enmod rewrite vhost_alias
 RUN apt-get update
 RUN apt-get install -y \
@@ -57,3 +56,6 @@ RUN chmod 700 /bin/composer
 RUN apt-get clean
 RUN apt-get autoremove -y
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/src/*
+
+# copy in configuration files
+COPY /000-shared.conf /etc/apache2/sites-enabled/000-shared.conf
