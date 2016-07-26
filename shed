@@ -1,0 +1,23 @@
+#!/bin/bash
+
+cd $(dirname $0)
+
+main() {
+    case "$1" in
+        up|start)
+            docker-compose up -d
+            ;;
+        down|stop)
+            docker-compose down
+            ;;
+        *)
+            echo "Usage: shed COMMAND"
+            echo
+            echo "Commands:"
+            echo "  up, start   Starts shed."
+            echo "  down, stop  Stops shed."
+            echo
+    esac
+}
+
+main "$@"
