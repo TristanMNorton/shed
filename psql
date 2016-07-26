@@ -1,3 +1,6 @@
 #!/bin/bash
 cd $(dirname $0)
-docker-compose exec postgres psql -U postgres
+
+CONTAINER="$(docker-compose ps -q postgres)"
+
+docker exec -it $CONTAINER psql "$@"

@@ -18,7 +18,14 @@ now, you can use localtest.me.
 
 So, if you're trying to access the site in the folder "wordpress", you'd use
 
-* http://wordpress.localtest.me/
+* http://wordpress.imarc.io/
+
+Other domains that support arbitrary subdomains are:
+
+* localtest.me
+* lvh.me
+* yoogle.com
+* lacolhost.com
 
 **Shed assumes** that the document root for all your projects is
 `<projectfolder>/public`. If you use `docroot/` instead, you can try creating a
