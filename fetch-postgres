@@ -1,9 +1,22 @@
 #!/bin/bash
+
+##
+# This fetches writable and database.
+#
+
+# These are used for shell colors.
+B="\e[1m"
+R="\e[0m"
+
+# Change current directory to the directory of this script. This helps with
+# docker-compose commands.
+PROJECT_PWD="$(pwd -P)"
 cd $(dirname $0)
+
 
 main() {
 
-    while getopts ":d:e:h:s:w:" OPT; do
+    while getopts ":d:e:h:s:w:cn" OPT; do
         case $OPT in
             d)
                 DATABASE="$OPTARG"
@@ -13,6 +26,12 @@ main() {
                 ;;
             h)
                 SERVER="$OPTARG"
+                ;;
+            c)
+                SHOW_CONFIG="1"
+                ;;
+            n)
+                DRY_RUN="1"
                 ;;
             s)
                 SITE="$OPTARG"
@@ -33,25 +52,45 @@ main() {
         SITE="$1"
     fi
 
-    if [ ! -v SITE ]; then
-        echo "You must specify the site (-s) to fetch." >&2
-        exit 1
-    fi
-
-    SERVER="${SERVER-$SITE}"
-    DATABASE="${DATABASE-${SITE//[^a-zA-Z0-9-]/_}}"
-    ENV_ROOT="${ENV_ROOT-/var/www/$SITE/dev}"
     WRITABLE="${WRITABLE-writable}"
-
     CONTAINER="$(docker-compose ps -q postgres)"
 
-    ## Fetch Database
-    echo ssh $SERVER pg_dump -cC $DATABASE -U postgres \| docker exec -i $CONTAINER psql -qU postgres
-    ssh $SERVER pg_dump -cC $DATABASE -U postgres | docker exec -i $CONTAINER psql -qU postgres
+    if [ -z "$SERVER" ] && [ -n $SITE ]; then
+        SERVER="$SITE"
+    fi
 
-    ## Fetch Files
-    #echo scp -qr $SERVER:$ENV_ROOT/$WRITABLE $WRITABLE
-    #scp -qr $SERVER:$ENV_ROOT/$WRITABLE $WRITABLE
+    if [ -z "$ENV_ROOT" ] && [ -n "$SITE" ]; then
+        ENV_ROOT="/var/www/$SITE/dev"
+    fi
+
+    if [ -z "$DATABASE" ] && [ -n "$SITE" ]; then
+        DATABASE="dev_${SITE//[^-a-zA-Z0-9]/_}"
+    fi
+
+    if [ -z "$SERVER" ] || [ -z "$DATABASE" ] || [ -z "$WRITABLE" ] || [ -z "$ENV_ROOT" ]; then
+        echo "Server, database, and writable are required."
+    fi
+
+    if [ -n "$SHOW_CONFIG" ]; then
+        echo -e "Settings:"
+        echo
+        echo -e " - SERVER:    $B$SERVER$R"
+        echo -e " - DATABASE:  $B$DATABASE$R"
+        echo -e " - WRITABLE:  $B$ENV_ROOT/$WRITABLE$R"
+        echo -e " - CONTAINER: $B${CONTAINER%"${CONTAINER#??????}"}$R"
+        echo
+
+        exit 0
+    fi
+
+    echo Fetching $DATABASE from $SERVER...
+    ssh $SERVER pg_dump -cC $DATABASE -U postgres | docker exec -i $CONTAINER psql -qU postgres
+    echo Done.
+
+    echo
+    echo Copying $ENV_ROOT/$WRITABLE from $SERVER to $PROJECT_PWD/$WRITABLE...
+    scp -qr $SERVER:$ENV_ROOT/$WRITABLE $PROJECT_PWD/$WRITABLE
+    echo Done.
 }
 
 main "$@"
