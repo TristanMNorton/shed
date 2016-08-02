@@ -46,6 +46,10 @@ RUN bash /install-php-memcached.sh && rm /install-php-memcached.sh
 COPY scripts/install-php-imagick.sh /install-php-imagick.sh
 RUN bash /install-php-imagick.sh && rm /install-php-imagick.sh
 
+# install xdebug
+COPY scripts/install-php-xdebug.sh /install-php-xdebug.sh
+RUN bash /install-php-xdebug.sh && rm /install-php-xdebug.sh
+
 # install composer
 WORKDIR /tmp
 RUN wget https://getcomposer.org/composer.phar
