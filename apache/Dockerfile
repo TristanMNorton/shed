@@ -38,13 +38,16 @@ RUN docker-php-ext-install \
     pgsql \
     zip
 
+COPY scripts/ /
+
 # install memcached
-COPY scripts/install-php-memcached.sh /install-php-memcached.sh
 RUN bash /install-php-memcached.sh && rm /install-php-memcached.sh
 
 # install imagick
-COPY scripts/install-php-imagick.sh /install-php-imagick.sh
 RUN bash /install-php-imagick.sh && rm /install-php-imagick.sh
+
+# install xdebug
+RUN bash /install-php-xdebug.sh && rm /install-php-xdebug.sh
 
 # install composer
 WORKDIR /tmp
@@ -57,5 +60,15 @@ RUN apt-get clean
 RUN apt-get autoremove -y
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/src/*
 
+# create base document root
+RUN mkdir -p /var/shed/public
+COPY /public/ /var/shed/public/
+
+# install webgrind
+RUN bash /install-webgrind.sh && rm /install-webgrind.sh
+
 # copy in configuration files
-COPY /000-shared.conf /etc/apache2/sites-enabled/000-shared.conf
+COPY /000-default.conf /etc/apache2/sites-enabled/000-default.conf
+
+# copy in PHP config
+COPY /php.ini /usr/local/etc/php/php.ini
