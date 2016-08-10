@@ -23,7 +23,8 @@ RUN apt-get install -y \
     vim \
     wget \
     netcat \
-    chrpath
+    chrpath \
+    sendmail
 RUN docker-php-ext-install \
     iconv \
     mcrypt \
@@ -48,6 +49,9 @@ RUN bash /install-php-imagick.sh && rm /install-php-imagick.sh
 
 # install xdebug
 RUN bash /install-php-xdebug.sh && rm /install-php-xdebug.sh
+
+# configure sendmail
+RUN bash /configure-sendmail.sh && rm /configure-sendmail.sh
 
 # install composer
 WORKDIR /tmp
