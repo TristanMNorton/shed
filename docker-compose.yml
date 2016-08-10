@@ -3,6 +3,17 @@ version: "2"
 services:
     apache:
         build: "./apache"
+        restart: always
+        environment:
+            # You can change the below config setting if you'd like the default
+            # docroot folder with projects to be something other than public/
+            #
+            - APACHE_DEFAULT_DOCROOT=public
+
+            # This sets Apache's log level; info is usually fine.
+            #
+            - APACHE_LOG_LEVEL=info
+
         volumes:
             # Shed assumes that you want to use the parent folder of shed as
             # your docroot. If you do not, you should change .. below to be
@@ -11,6 +22,7 @@ services:
             #     - "/home/kevin/Sites:/var/www"
             #
             - "..:/var/www"
+
         ports:
             # If you would like for your sites to be available on a different
             # port than port 80, change the first number here to something
@@ -19,17 +31,20 @@ services:
             #     - "8000:80"
             #
             - "80:80"
+
         links:
             - postgres
             - mysql
     postgres:
         image: "postgres:latest"
+        restart: always
         environment:
             PGDATA: "/var/lib/postgresql/data/pgdata"
         volumes:
             - "./data/postgres:/var/lib/postgresql/data/pgdata"
     mysql:
         image: "mysql:latest"
+        restart: always
         environment:
             MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
         volumes:
