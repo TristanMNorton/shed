@@ -2,7 +2,7 @@ version: "2"
 
 services:
     apache:
-        build: "./apache"
+        image: "shedhost/apache"
         restart: always
         environment:
             # You can change the below config setting if you'd like the default
