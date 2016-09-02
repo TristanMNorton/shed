@@ -1,6 +1,0 @@
-#!/bin/bash
-cd $(dirname $0)
-
-CONTAINER="$(docker-compose ps -q mysql)"
-
-docker exec -it $CONTAINER mysql "$@"
