@@ -1,2 +1,3 @@
-data/mysql
-data/postgres
+/data/mysql
+/data/postgres
+/vendor/

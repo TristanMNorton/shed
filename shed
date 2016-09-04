@@ -1,23 +1,13 @@
-#!/bin/bash
+#!/usr/bin/env php
+<?php
 
-cd $(dirname $0)
+chdir(__DIR__);
 
-main() {
-    case "$1" in
-        up)
-            docker-compose up -d
-            ;;
-        down)
-            docker-compose down
-            ;;
-        *)
-            echo "Usage: shed COMMAND"
-            echo
-            echo "Commands:"
-            echo "  up    Starts shed."
-            echo "  down  Stops shed."
-            echo
-    esac
+if (file_exists(__DIR__ . '/../../autoload.php')) {
+    require __DIR__ . '/../../autoload.php';
+} else {
+    require __DIR__ . '/src/Command.php';
 }
 
-main "$@"
+$cmd = new Shed\Command(array_slice($argv, 1));
+$cmd->run();
