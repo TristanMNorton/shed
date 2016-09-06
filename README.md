@@ -27,28 +27,36 @@ It's designed to provide a set-it-and-forget-it platform for local, PHP developm
 Setup
 -----
 
-To run Shed, you only need to be able to run [Docker](https://www.docker.com/).
+To run Shed, you only need to be able to run [Docker](https://www.docker.com/) and [Composer](https://getcomposer.org). Shed is not tested on Windows yet, but Shed plans to support Windows, Linux, and OS X.
 
 
 ### Default Enviroment
 
-By default, Shed assumes the following setup:
+There's only one setting that must be set:
 
-* You have all your projects in one main folder: `Projects/` or `Sites/` perhaps.
-* Shed itself is inside that folder.
-* Shed should use the default HTTP port, port 80.
-* Within each project folder, Shed looks for a `public/` subfolder and uses that as the document root.
+```
+shed config home $HOME/Sites
+```
 
-If that's how you plan to use Shed, great. If not, you'll want to look in the
-`docker-compose.yml` and make some adjustements.
+This specifies which folder shed should look in for your projects or sites.
+
+By default, Shed assumes that within each project folder, there will be a `public/` subfolder that Shed should use as a the **document root**. If you'd rather default to something other than public, you can change it:
+
+```
+shed config docroot html
+```
+
+Lastly, if you don't want to run Shed on port 80, you can change that too:
+
+```
+shed config port 8000
+```
 
 
 Usage
 -----
 
-Start Shed by running `./shed up`. Once it's running, you can access your
-projects based on their folder names. For example, To access
-`Projects/example.com`, I would go to
+Start Shed by running `shed up` or `shed up -d`. Once it's running, you can access your projects based on their folder names. For example, To access `Projects/example.com`, I would go to
 
 * http://example.com.shed.host
 
@@ -76,6 +84,13 @@ $ ln -s public docroot
 \*.shed.host is setup using wildcard DNS to point to `127.0.0.1` - one of the IPs designed to always point to your own local system (*localhost*.) This eliminates any need to etc your `/etc/hosts` file.
 
 Within Shed's apache container, it uses `mod_vhost_alias` to map these subdomains back to separate virtualhosts. This means that there's no new apache configuration required.
+
+### Special Subdomains
+
+There are two groups of special domains:
+
+1. [shed.host](http://www.shed.host) and [www.shed.host](http://www.shed.host) get you to Shed's website.
+2. [my.shed.host](http://my.shed.host) and [shed.shed.host](http://shed.shed.host) get you to Shed's local, internal site. This is where you can find Adminer and Webgrind.
 
 
 Adminer
