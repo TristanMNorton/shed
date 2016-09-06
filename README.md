@@ -3,6 +3,14 @@ Shed
 
 simple local PHP development
 
+Quick Start
+-----------
+
+1. You need [Docker](https://www.docker.com/) and [Composer](https://getcomposer.org/) installed.
+2. `composer global require shed`
+3. `shed config APACHE_BASE_PATH $HOME/Sites`
+3. `shed up -d`
+
 Introduction
 ------------
 

@@ -3,6 +3,25 @@ namespace Shed;
 
 class Command
 {
+    const ENV_FILE = '.env';
+
+    static private function getEnv()
+    {
+        return parse_ini_file(getcwd() . '/' . static::ENV_FILE);
+    }
+
+    static private function setEnv(array $config)
+    {
+        $config = array_replace(static::getEnv(), $config);
+        $ini = '';
+
+        foreach ($config as $attr => $val) {
+            $ini .= "$attr=$val\n";
+        }
+
+        file_put_contents(getcwd() . '/' . static::ENV_FILE, $ini);
+    }
+
     private $args = [];
 
     static private function container($name)
@@ -51,6 +70,10 @@ class Command
                 $this->help();
                 break;
 
+            case 'config':
+                $this->config();
+                break;
+
             case 'mysql':
                 $this->mysql();
                 break;
@@ -94,6 +117,24 @@ class Command
             "  up       Create and start shed containers.",
             ""
         ]);
+    }
+
+    public function config()
+    {
+        $env = static::getEnv();
+
+        if (count($this->args) < 2) {
+            foreach ($env as $attr => $val) {
+                echo "$attr = $val\n";
+            }
+        } elseif (count($this->args) == 2) {
+            if (isset($env[$this->args[1]])) {
+                echo $this->args[1] . " = " . $env[$this->args[1]] . "\n";
+            }
+        } else {
+            $env[$this->args[1]] = $this->args[2];
+            static::setEnv($env);
+        }
     }
 
     public function mysql()
