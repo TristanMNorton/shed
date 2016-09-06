@@ -6,15 +6,15 @@ services:
         restart: always
 
         environment:
-            APACHE_LOG_LEVEL: "${APACHE_LOG_LEVEL}"
-            APACHE_DEFAULT_DOCROOT: "${APACHE_DEFAULT_DOCROOT}"
+            APACHE_LOG_LEVEL: "${logging}"
+            APACHE_DEFAULT_DOCROOT: "${docroot}"
 
         volumes:
             - ".:/var/shed/config"
-            - "${APACHE_BASE_PATH}:/var/www"
+            - "${home}:/var/www"
 
         ports:
-            - "${APACHE_PORT}:80"
+            - "${port}:80"
 
         links:
             - postgres
