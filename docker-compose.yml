@@ -11,7 +11,7 @@ services:
 
         volumes:
             - ".:/var/shed/config"
-            - "${home}:/var/www"
+            - "${sites}:/var/www"
 
         ports:
             - "${port}:80"
@@ -27,7 +27,7 @@ services:
             PGDATA: "/var/lib/postgresql/data/pgdata"
 
         volumes:
-            - "./data/postgres:/var/lib/postgresql/data/pgdata"
+            - "${HOME}/.shed/data/postgres:/var/lib/postgresql/data/pgdata"
     mysql:
         image: "mysql:latest"
         restart: always
@@ -36,4 +36,4 @@ services:
             MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
 
         volumes:
-            - "./data/mysql:/var/lib/mysql"
+            - "${HOME}/.shed/data/mysql:/var/lib/mysql"
