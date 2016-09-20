@@ -74,6 +74,10 @@ class Command
                 $this->config();
                 break;
 
+            case 'fetch':
+                $this->fetch();
+                break;
+
             case 'mysql':
                 $this->mysql();
                 break;
@@ -109,6 +113,7 @@ class Command
             "Commands:",
             "  build    Build or rebuild services.",
             "  down     Stop shed containers.",
+            "  fetch    Fetch a remote database.",
             "  mysql    Access MySQL.",
             "  psql     Access PostgreSQL.",
             "  sh       Access a container.",
@@ -153,6 +158,31 @@ class Command
             "docker exec -it $id psql",
             array_slice($this->args, 1)
         );
+    }
+
+    public function fetch()
+    {
+        if (count($this->args) < 4) {
+            echo "Usage: shed fetch postgres|mysql DBNAME SERVER\n";
+            exit(1);
+        }
+
+        $id = static::container($this->args[1]);
+        $db = $this->args[2];
+        $host = $this->args[3];
+
+        if ($this->args[1] == 'mysql') {
+            static::runInteractiveCommand(
+                "ssh $host mysqldump --databases --add-drop-database $db | docker exec -i $id mysql"
+            );
+        } elseif ($this->args[1] == 'postgres') {
+            static::runInteractiveCommand(
+                "ssh $host pg_dump -cC -U postgres $db | docker exec -i $id psql -U postgres > /dev/null"
+            );
+        } else {
+            echo "DB type must be mysql or postgres.\n";
+            exit(1);
+        }
     }
 
     public function sh()
