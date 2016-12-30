@@ -177,7 +177,7 @@ class Command
             );
         } elseif ($this->args[1] == 'postgres') {
             static::runInteractiveCommand(
-                "ssh $host pg_dump -cC -U postgres $db | docker exec -i $id psql -U postgres > /dev/null"
+                "ssh $host pg_dump -C -U postgres $db | docker exec -i $id psql -U postgres > /dev/null"
             );
         } else {
             echo "DB type must be mysql or postgres.\n";
