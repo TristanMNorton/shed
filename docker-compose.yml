@@ -10,7 +10,9 @@ services:
             APACHE_DEFAULT_DOCROOT: "${docroot}"
 
         volumes:
-            - ".:/var/shed/config"
+            - "./:/var/shed"
+            - "./config/apache/default.conf:/etc/apache2/sites-enabled/000-default.conf"
+            - "./config/apache/php.ini:/usr/local/etc/php/php.ini"
             - "${sites}:/var/www"
 
         ports:
