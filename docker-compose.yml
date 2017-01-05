@@ -19,8 +19,14 @@ services:
         links:
             - postgres
             - mysql
+            - memcached
+
+    memcached:
+        image: "memcached:1.4"
+        restart: always
+
     postgres:
-        image: "postgres:latest"
+        image: "postgres:9.6"
         restart: always
 
         environment:
@@ -28,8 +34,9 @@ services:
 
         volumes:
             - "${HOME}/.shed/data/postgres:/var/lib/postgresql/data/pgdata"
+
     mysql:
-        image: "mysql:latest"
+        image: "mysql:8.0"
         restart: always
 
         environment:
