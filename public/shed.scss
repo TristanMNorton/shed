@@ -1,0 +1,293 @@
+@import 'https://fonts.googleapis.com/css?family=Lato:400,400i,700';
+
+/* Colors */
+
+$text:    #4f6978;
+$matte:   #e4e9ec;
+$card:    #f5f5fa;
+$meta:    $text;
+$code-bg: #ffffff;
+$border:  rgba(0, 0, 0, .2);
+
+$link:    #3f90be;
+$visited: #6590a8;
+$hover:   darken($link, 10%);
+$border:  rgba(0, 0, 0, .2);
+
+$error:   #d6aeac;
+$message: #dbe7a5;
+$active:  #ffc8ce;
+
+* {
+    border: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    color: $text;
+    background: $matte;
+    font: 16px/1.25 Lato, Arial, Helvetica, sans-serif;
+}
+
+body {
+    max-width: 792px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+a {
+    color: $link;
+    text-decoration: none;
+
+    &:visited {
+        color: $visited;
+    }
+
+    &:link:hover,
+    &:visited:hover {
+        color: $hover;
+        text-decoration: underline;
+    }
+
+    &.text:hover {
+        text-decoration: none;
+    }
+
+    &.jush-help:hover {
+        color: inherit;
+    }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    font-style: normal;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 1.5rem;
+}
+h2 {
+    font-size: 2rem;
+}
+h3 {
+    font-size: 1.5rem;
+}
+
+form {
+    margin: 0;
+}
+td table {
+    width: 100%;
+    margin: 0;
+}
+table {
+    border-collapse: collapse;
+    margin: 0 1em 1.5em;
+    font-size: 13px;
+}
+td,
+th {
+    padding: .2em .4em;
+    border: 1px solid darken($matte, 5%);
+}
+th {
+    text-align: left;
+}
+thead td,
+thead th {
+    background: darken($matte, 5%);
+}
+
+tr.checked {
+    background: #d9e0e5;
+}
+
+fieldset {
+    background: $card;
+    border-radius: 5px;
+    border-top: 1.75rem solid $card;
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+    display: inline-block;
+    margin: 0 0 1.5rem 1rem;
+    padding: 1rem;
+    position: relative;
+    vertical-align: top;
+
+    legend {
+        font-size: 13px;
+        line-height: 1.75rem;
+        padding: 0 1rem;
+        border-bottom: 1px solid $matte;
+    }
+}
+
+input {
+    padding: .4em .5em;
+    font: 11px/1.33 Lato, Arial, Helvetica, sans-serif;
+    border-radius: 2px;
+    border: 1px solid $border;
+
+    &:hover,
+    &:focus {
+        outline: none;
+        border-color: $link;
+    }
+
+    &:not([disabled]) {
+        cursor: pointer;
+    }
+
+    &[disabled] {
+    }
+}
+
+input[type=submit],
+input[type=button] {
+    background: $link;
+    color: #fff;
+    padding: .4em .5em;
+    font-weight: bold;
+    font: 11px/1.33 Lato, Arial, Helvetica, sans-serif;
+    border-radius: 2px;
+
+    &:hover,
+    &:focus {
+        outline: none;
+        background: $hover;
+    }
+
+    &:not([disabled]) {
+        cursor: pointer;
+    }
+
+    &[disabled] {
+        background: $border;
+    }
+}
+
+input[type=checkbox],
+input[type=radio] {
+    margin-right: .15em;
+    vertical-align: middle;
+}
+
+select {
+    font-size: 13px;
+    padding: .3rem .4rem;
+    border: 1px solid $border;
+    border-radius: 2px;
+    background: #fff;
+
+    &:focus {
+        border-color: rgba(0, 0, 0, .4);
+        outline: 0;
+    }
+}
+
+label {
+    display: block;
+    padding: .5em 0;
+}
+
+
+
+p {
+    margin-bottom: 1.5em;
+}
+img {
+    vertical-align: middle;
+    border: 0;
+}
+td img {
+    max-width: 200px;
+    max-height: 200px;
+}
+code {
+    padding: 0 .25em;
+    background: $code-bg;
+}
+
+tbody tr:hover td,
+tbody tr:hover th {
+    background: lighten($matte, 5%);
+}
+pre {
+    margin: 1em 0 0;
+}
+pre,
+textarea {
+    font: 100%/1.25 monospace;
+}
+input[type=image] {
+    vertical-align: middle;
+}
+input.default {
+    box-shadow: 1px 1px 1px #777;
+}
+input.required {
+    box-shadow: 1px 1px 1px red;
+}
+.js .hidden,
+.nojs .jsonly {
+    display: none;
+}
+.error {
+    background: $error;
+}
+.message {
+    background: $message;
+}
+.error,
+.message {
+    padding: .5em .8em;
+    margin: 1em 20px 0 0;
+}
+.active,
+a.active {
+    color: darken($text, 10%);
+    font-weight: bold;
+}
+
+ul {
+    padding-left: 3rem;
+    column-count: 2;
+    list-style: none;
+
+    li {
+        position: relative;
+
+        &::before {
+            content: '■';
+            display: inline-block;
+            font-size: 12px;
+            opacity: .5;
+            width: 1rem;
+            transition: opacity 250ms;
+        }
+
+        &:hover {
+            &::before {
+                opacity: 1;
+            }
+        }
+    }
+}
+
+
+header.primary {
+    background: darken($matte, 10%);
+    padding: 2rem 1rem 1rem;
+}
+
+main {
+    padding: 2rem 1rem 1rem;
+
+    section:not(:first-child) {
+        margin-top: 4rem;
+    }
+}

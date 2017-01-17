@@ -1,0 +1,222 @@
+@charset "UTF-8";
+@import "https://fonts.googleapis.com/css?family=Lato:400,400i,700";
+/* Colors */
+* {
+  border: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0; }
+
+html {
+  color: #4f6978;
+  background: #e4e9ec;
+  font: 16px/1.25 Lato, Arial, Helvetica, sans-serif; }
+
+body {
+  max-width: 792px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem; }
+
+a {
+  color: #3f90be;
+  text-decoration: none; }
+  a:visited {
+    color: #6590a8; }
+  a:link:hover, a:visited:hover {
+    color: #327398;
+    text-decoration: underline; }
+  a.text:hover {
+    text-decoration: none; }
+  a.jush-help:hover {
+    color: inherit; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  font-style: normal;
+  margin-bottom: 1rem; }
+
+h1 {
+  font-size: 1.5rem; }
+
+h2 {
+  font-size: 2rem; }
+
+h3 {
+  font-size: 1.5rem; }
+
+form {
+  margin: 0; }
+
+td table {
+  width: 100%;
+  margin: 0; }
+
+table {
+  border-collapse: collapse;
+  margin: 0 1em 1.5em;
+  font-size: 13px; }
+
+td,
+th {
+  padding: .2em .4em;
+  border: 1px solid #d5dde1; }
+
+th {
+  text-align: left; }
+
+thead td,
+thead th {
+  background: #d5dde1; }
+
+tr.checked {
+  background: #d9e0e5; }
+
+fieldset {
+  background: #f5f5fa;
+  border-radius: 5px;
+  border-top: 1.75rem solid #f5f5fa;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+  display: inline-block;
+  margin: 0 0 1.5rem 1rem;
+  padding: 1rem;
+  position: relative;
+  vertical-align: top; }
+  fieldset legend {
+    font-size: 13px;
+    line-height: 1.75rem;
+    padding: 0 1rem;
+    border-bottom: 1px solid #e4e9ec; }
+
+input {
+  padding: .4em .5em;
+  font: 11px/1.33 Lato, Arial, Helvetica, sans-serif;
+  border-radius: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.2); }
+  input:hover, input:focus {
+    outline: none;
+    border-color: #3f90be; }
+  input:not([disabled]) {
+    cursor: pointer; }
+
+input[type=submit],
+input[type=button] {
+  background: #3f90be;
+  color: #fff;
+  padding: .4em .5em;
+  font-weight: bold;
+  font: 11px/1.33 Lato, Arial, Helvetica, sans-serif;
+  border-radius: 2px; }
+  input[type=submit]:hover, input[type=submit]:focus,
+  input[type=button]:hover,
+  input[type=button]:focus {
+    outline: none;
+    background: #327398; }
+  input[type=submit]:not([disabled]),
+  input[type=button]:not([disabled]) {
+    cursor: pointer; }
+  input[type=submit][disabled],
+  input[type=button][disabled] {
+    background: rgba(0, 0, 0, 0.2); }
+
+input[type=checkbox],
+input[type=radio] {
+  margin-right: .15em;
+  vertical-align: middle; }
+
+select {
+  font-size: 13px;
+  padding: .3rem .4rem;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  background: #fff; }
+  select:focus {
+    border-color: rgba(0, 0, 0, 0.4);
+    outline: 0; }
+
+label {
+  display: block;
+  padding: .5em 0; }
+
+p {
+  margin-bottom: 1.5em; }
+
+img {
+  vertical-align: middle;
+  border: 0; }
+
+td img {
+  max-width: 200px;
+  max-height: 200px; }
+
+code {
+  padding: 0 .25em;
+  background: #ffffff; }
+
+tbody tr:hover td,
+tbody tr:hover th {
+  background: #f3f5f7; }
+
+pre {
+  margin: 1em 0 0; }
+
+pre,
+textarea {
+  font: 100%/1.25 monospace; }
+
+input[type=image] {
+  vertical-align: middle; }
+
+input.default {
+  box-shadow: 1px 1px 1px #777; }
+
+input.required {
+  box-shadow: 1px 1px 1px red; }
+
+.js .hidden,
+.nojs .jsonly {
+  display: none; }
+
+.error {
+  background: #d6aeac; }
+
+.message {
+  background: #dbe7a5; }
+
+.error,
+.message {
+  padding: .5em .8em;
+  margin: 1em 20px 0 0; }
+
+.active,
+a.active {
+  color: #3b4e59;
+  font-weight: bold; }
+
+ul {
+  padding-left: 3rem;
+  column-count: 2;
+  list-style: none; }
+  ul li {
+    position: relative; }
+    ul li::before {
+      content: '■';
+      display: inline-block;
+      font-size: 12px;
+      opacity: .5;
+      width: 1rem;
+      transition: opacity 250ms; }
+    ul li:hover::before {
+      opacity: 1; }
+
+header.primary {
+  background: #c6d1d7;
+  padding: 2rem 1rem 1rem; }
+
+main {
+  padding: 2rem 1rem 1rem; }
+  main section:not(:first-child) {
+    margin-top: 4rem; }
+
+/*# sourceMappingURL=shed.css.map */
