@@ -52,9 +52,10 @@ class Command
         } while($status['running']);
     }
 
-    public function __construct($args)
+    public function __construct($args, $pwd)
     {
         $this->args = $args;
+        $this->pwd = rtrim($pwd, '/');
     }
 
     public function run()

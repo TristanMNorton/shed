@@ -1,6 +1,7 @@
 #!/usr/bin/env php
 <?php
 
+$original_pwd = getcwd();
 chdir(__DIR__);
 
 if (file_exists(__DIR__ . '/vendor/autoload.php')) {
@@ -9,5 +10,5 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
     require __DIR__ . '/../../autoload.php';
 }
 
-$cmd = new Shed\Command(array_slice($argv, 1));
+$cmd = new Shed\Command(array_slice($argv, 1), $original_pwd);
 $cmd->run();
