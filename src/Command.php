@@ -127,6 +127,7 @@ class Command
             "  sh       Access a container.",
             "  start    Start shed services.",
             "  stop     Stop shed services.",
+            "  ps       Show status of shed services.",
             "  up       Create and start shed containers.",
             ""
         ]);
