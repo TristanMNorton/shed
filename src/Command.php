@@ -87,6 +87,11 @@ class Command
                 $this->psql();
                 break;
 
+            case 'npm':
+            case 'php':
+                $this->runInEquivalentPath($this->args[0]);
+                break;
+
             case 'sh':
                 $this->sh();
                 break;
@@ -117,6 +122,8 @@ class Command
             "  fetch    Fetch a remote database.",
             "  mysql    Access MySQL.",
             "  psql     Access PostgreSQL.",
+            "  npm      Run NPM within the apache container.",
+            "  php      Run PHP within the apache container.",
             "  sh       Access a container.",
             "  start    Start shed services.",
             "  stop     Stop shed services.",
@@ -141,6 +148,20 @@ class Command
             $env[$this->args[1]] = $this->args[2];
             static::setEnv($env);
         }
+    }
+
+    public function runInEquivalentPath($cmd)
+    {
+        $env = static::getEnv();
+        if (strpos($this->pwd, $env['sites']) === 0) {
+            $path = '/var/www/' . substr($this->pwd, strlen($env['sites']));
+        } else {
+            $path = '/var/www';
+        }
+        $id = static::container('apache');
+        static::runInteractiveCommand(
+            "docker exec -it $id bash -c \"cd $path; " . implode(' ', $this->args) . "\""
+        );
     }
 
     public function mysql()
