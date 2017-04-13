@@ -22,7 +22,10 @@ class Command
         file_put_contents(getcwd() . '/' . static::ENV_FILE, $ini);
     }
 
-    private $args = [];
+    static private function populateSystemEnv()
+    {
+        putenv("USER_ID=" . getmyuid());
+    }
 
     static private function container($name)
     {
@@ -31,6 +34,7 @@ class Command
             exit(1);
         }
 
+        static::populateSystemEnv();
         $container_id = trim(shell_exec("docker-compose ps -q $name"));
 
         if (!$container_id) {
@@ -43,6 +47,7 @@ class Command
 
     static private function runInteractiveCommand($cmd, array $args = [])
     {
+        static::populateSystemEnv();
         $cmd .= ' ' . implode(' ', array_map('escapeshellarg', $args));
         $process = proc_open($cmd, [STDIN, STDOUT, STDERR], $pipes);
 
@@ -51,6 +56,10 @@ class Command
             $status = proc_get_status($process);
         } while($status['running']);
     }
+
+
+
+    private $args = [];
 
     public function __construct($args, $pwd)
     {
@@ -97,7 +106,8 @@ class Command
                 break;
 
             default:
-                system(
+                static::populateSystemEnv();
+                passthru(
                     'docker-compose ' . implode(' ',
                         array_map('escapeshellarg', $this->args)
                     ),
