@@ -2,11 +2,12 @@ version: "2"
 
 services:
   apache:
-    user: $USER_ID
-    image: "shedhost/apache"
+    image: "shedhost/apache:latest"
     restart: unless-stopped
 
     environment:
+      APACHE_UID: "${USER_ID}"
+      APACHE_GID: "${GROUP_ID}"
       APACHE_LOG_LEVEL: "${logging}"
       APACHE_DEFAULT_DOCROOT: "${docroot}"
 

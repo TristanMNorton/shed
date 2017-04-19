@@ -25,6 +25,7 @@ class Command
     static private function populateSystemEnv()
     {
         putenv("USER_ID=" . getmyuid());
+        putenv("GROUP_ID=" . getmygid());
     }
 
     static private function container($name)
