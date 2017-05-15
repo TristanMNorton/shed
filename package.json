@@ -1,0 +1,25 @@
+{
+  "name": "shed-js",
+  "version": "0.2.0",
+  "description": "shared hosting environment on docker",
+  "main": "shed.js",
+  "dependencies": {
+    "commander": "^2.9.0",
+    "dotenv": "^4.0.0",
+    "graceful-readlink": "^1.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shedhost/shed.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shedhost/shed/issues"
+  },
+  "homepage": "https://github.com/shedhost/shed#readme"
+}
