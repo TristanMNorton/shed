@@ -66,7 +66,7 @@ commander
  */
 commander
     .command("config")
-    .description("config")
+    .description("Display current configuration information.")
     .action((param, val) => {
         let env = new shedEnv(commander.opts(), process.cwd);
 
@@ -85,7 +85,7 @@ commander
  */
 commander
     .command("sh")
-    .description("sh")
+    .description("Open a shell within one of the shed containers (apache by default.)")
     .allowUnknownOption()
     .action(cmd => {
         let env = new shedEnv(commander.opts(), process.cwd);
@@ -97,7 +97,7 @@ commander
  */
 commander
     .command("mysql")
-    .description("mysql")
+    .description("Runs the mysql client within the mysql container.")
     .allowUnknownOption()
     .action(cmd => {
         let env = new shedEnv(commander.opts(), process.cwd);
@@ -110,7 +110,7 @@ commander
  */
 commander
     .command("psql")
-    .description("psql")
+    .description("Runs psql (the postgres client) within the postgres container.")
     .allowUnknownOption()
     .action(cmd => {
         let env = new shedEnv(commander.opts(), process.cwd);
@@ -123,7 +123,7 @@ commander
  */
 commander
     .command("compose [args...]")
-    .description("Run a docker-compose command.")
+    .description("Runs a docker-compose command against Shed's docker-compose file.")
     .allowUnknownOption()
     .action(() => {
         let env = new shedEnv(commander.opts(), process.cwd);
