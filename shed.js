@@ -147,13 +147,5 @@ for (let i = 0; i < composeCommands.length; i++) {
         });
 }
 
-commander
-    .command("compose [args...]")
-    .description("Run a docker-compose command.")
-    .allowUnknownOption()
-    .action(() => {
-        let env = new shedEnv(commander.opts(), process.cwd);
-        env.runOnHost("docker-compose", commander.rawCommandArgs());
-    });
 
 commander.parse(process.argv);
