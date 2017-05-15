@@ -130,6 +130,17 @@ commander
         env.runOnHost("docker-compose", commander.rawCommandArgs());
     });
 
+/**
+ * shed fetch
+ */
+commander
+    .command("fetch <type> <database> <server>")
+    .description("Fetch a remote database into the respective shed container.")
+    .action((type, database, server) => {
+        let env = new shedEnv(commander.opts(), process.cwd);
+        env.fetchDatabase(type, database, server);
+    });
+
 
 /**
  * This is sugar to allow some shed compose commands to be run without

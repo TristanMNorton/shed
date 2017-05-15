@@ -20,7 +20,7 @@ ShedEnvironment = function(options, userCwd) {
      */
     let idFor = function (name) {
         return proc.execSync(
-            `docker-compose ps -q ${options.container}`,
+            `docker-compose ps -q ${name}`,
             {cwd}
         ).toString().trim();
     };
@@ -80,8 +80,27 @@ ShedEnvironment = function(options, userCwd) {
     };
 
 
+    this.fetchDatabase = function(type, database, server) {
+        console.log('fetchDatabase', type, database, server);
+        if (type == "mysql") {
+            let id = idFor("mysql");
+            let dbDump = proc.execSync(`ssh ${server} mysqldump --databases --add-drop-database ${database}`);
+            proc.execSync(`docker exec -i ${id} mysql`, {
+                input: dbDump
+            });
+
+        } else if (type == "postgres" || type == "psql") {
+            let id = idFor("postgres");
+            let dbDump = proc.execSync(`ssh ${server} pg_dump -C -U postgres ${database}`);
+            proc.execSync(`docker exec -i ${id} psql -U postgres > /dev/null`, {
+                input: dbDump
+            });
+        }
+    };
+
+
     /**
-     * init
+     * initization code.
      */
 
     // remove undefined options
