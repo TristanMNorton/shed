@@ -159,4 +159,21 @@ for (let i = 0; i < composeCommands.length; i++) {
 }
 
 
+/**
+ * By default, just show help.
+ */
+commander
+    .command("*")
+    .action(() => {
+        commander.help();
+    });
+
+
+/**
+ * Parse arguments and do stuff.
+ */
 commander.parse(process.argv);
+
+if (process.argv.length < 3) {
+    commander.help();
+}
