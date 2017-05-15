@@ -80,6 +80,14 @@ ShedEnvironment = function(options, userCwd) {
     };
 
 
+    /**
+     * Fetches a remote database and loads it into the respective container.
+     * This depends on the host's SSH configuration.
+     *
+     * @param type      string  Should be 'mysql' or 'postgres'.
+     * @param database  string  Name of the remote database to fetch.
+     * @param server    string  Name of the remote server to connect to.
+     */
     this.fetchDatabase = function(type, database, server) {
         console.log('fetchDatabase', type, database, server);
         if (type == "mysql") {
