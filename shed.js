@@ -1,10 +1,19 @@
 #!/usr/bin/env node
 "use strict";
 
+/**
+ * This file defines the CLI command and maps its commands to ShedEnvironment
+ * methods.
+ */
+
 const shedEnv   = require("./shed-environment");
 const commander = require("commander");
 
+/**
+ * consants
+ */
 const composeCommands = ['start', 'stop', 'up', 'down', 'ps'];
+
 
 /**
  * Help function that returns the equivalent for rawArgs except with the
@@ -51,6 +60,10 @@ commander
     .option("--config <file>", "confg file")
     .option("--port <port>", "port", 80);
 
+
+/**
+ * shed config
+ */
 commander
     .command("config")
     .description("config")
@@ -66,6 +79,10 @@ commander
         }
     });
 
+
+/**
+ * shed sh
+ */
 commander
     .command("sh")
     .description("sh")
@@ -75,6 +92,49 @@ commander
         env.runInContainer("bash", commander.rawCommandArgs());
     });
 
+/**
+ * shed mysql
+ */
+commander
+    .command("mysql")
+    .description("mysql")
+    .allowUnknownOption()
+    .action(cmd => {
+        let env = new shedEnv(commander.opts(), process.cwd);
+        env.option("container", "mysql");
+        env.runInContainer("mysql", commander.rawCommandArgs());
+    });
+
+/**
+ * shed psql
+ */
+commander
+    .command("psql")
+    .description("psql")
+    .allowUnknownOption()
+    .action(cmd => {
+        let env = new shedEnv(commander.opts(), process.cwd);
+        env.option("container", "postgres");
+        env.runInContainer(["psql", "-U", "postgres"], commander.rawCommandArgs());
+    });
+
+/**
+ * shed compose
+ */
+commander
+    .command("compose [args...]")
+    .description("Run a docker-compose command.")
+    .allowUnknownOption()
+    .action(() => {
+        let env = new shedEnv(commander.opts(), process.cwd);
+        env.runOnHost("docker-compose", commander.rawCommandArgs());
+    });
+
+
+/**
+ * This is sugar to allow some shed compose commands to be run without
+ * including 'compose'.
+ */
 for (let i = 0; i < composeCommands.length; i++) {
     let cmd = composeCommands[i];
     commander

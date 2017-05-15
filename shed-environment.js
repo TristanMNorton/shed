@@ -6,9 +6,18 @@ const proc = require("child_process");
 
 let ShedEnvironment = function() {};
 
+
+/**
+ * This represents an instance of shed for the sake of running commands and such. Most of Shed's logic should be in here.
+ */
 ShedEnvironment = function(options, userCwd) {
     let cwd = __dirname;
 
+    /**
+     * Helper function that fetches the Docker ID for a container by name.
+     *
+     * @param name  string  Name of the container to get the ID for.
+     */
     let idFor = function (name) {
         return proc.execSync(
             `docker-compose ps -q ${options.container}`,
@@ -16,6 +25,13 @@ ShedEnvironment = function(options, userCwd) {
         ).toString().trim();
     };
 
+    /*
+     * Displays or sets a configuration option. If no arguments are given at
+     * all, it displays all configuration option values.
+     *
+     * @param param  string  Parameter to display or set.
+     * @param val    string  If provided, sets the parameter to this value.
+     */
     this.option = function(param, val) {
         if (val) {
             options[param] = val;
@@ -28,6 +44,15 @@ ShedEnvironment = function(options, userCwd) {
         }
     };
 
+    /*
+     * Runs a command within the container using docker exec. Both cmd or args
+     * can be arrays or a single string.
+     *
+     * @param cmd   mixed  a single argument (as a string) or an array of
+     *                     arguments.
+     * @param args  mixed  a single argument (as a string) or an array of
+     *                     arguments.
+     */
     this.runInContainer = function (cmd, args) {
         let id = idFor(options.container);
         args = ["exec", "-it", id, "bash"].concat(args);
@@ -38,8 +63,14 @@ ShedEnvironment = function(options, userCwd) {
         });
     };
 
+    /**
+     * Runs a command on the host (where shed is installed.) cmd must be a
+     * string (a single executable.)
+     *
+     * @param cmd   string  an executable.
+     * @param args  array   an array of arguments.
+     */
     this.runOnHost = function(cmd, args) {
-        console.log("proc.spawn", cmd, args, cwd);
         proc.spawn(cmd, args, {
             stdio: "inherit",
             cwd,
@@ -47,7 +78,10 @@ ShedEnvironment = function(options, userCwd) {
         });
     };
 
-    // init
+
+    /**
+     * init
+     */
 
     // remove undefined options
     Object.keys(options)
