@@ -10,6 +10,10 @@
   },
 
   "main": "shed.js",
+  "bin": {
+    "shed": "./shed.js"
+  },
+  "preferGlobal": true,
 
   "repository": {
     "type": "git",
