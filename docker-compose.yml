@@ -10,7 +10,7 @@ services:
             APACHE_DEFAULT_DOCROOT: "${docroot}"
 
         volumes:
-            - "./:/var/shed"
+            - ".:/var/shed"
             - "./config/apache/default.conf:/etc/apache2/sites-enabled/000-default.conf"
             - "./config/apache/php.ini:/usr/local/etc/php/php.ini"
             - "${sites}:/var/www"
@@ -35,7 +35,7 @@ services:
             PGDATA: "/var/lib/postgresql/data/pgdata"
 
         volumes:
-            - "${HOME}/.shed/data/postgres:/var/lib/postgresql/data/pgdata"
+            - "./data/postgres:/var/lib/postgresql/data/pgdata"
 
     mysql:
         image: "mysql:8.0"
@@ -45,4 +45,4 @@ services:
             MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
 
         volumes:
-            - "${HOME}/.shed/data/mysql:/var/lib/mysql"
+            - "./data/mysql:/var/lib/mysql"
