@@ -13,6 +13,9 @@ let ShedEnvironment = function() {};
 ShedEnvironment = function(options, userCwd) {
     let cwd = __dirname;
 
+    let USER_ID = proc.execSync("id -u").toString().trim();
+    let GROUP_ID = proc.execSync("id -g").toString().trim();
+
     /**
      * Helper function that fetches the Docker ID for a container by name.
      *
@@ -60,7 +63,7 @@ ShedEnvironment = function(options, userCwd) {
         proc.spawn("docker", args, {
             stdio: "inherit",
             cwd,
-            env: Object.assign({}, process.env, this.opts)
+            env: Object.assign({USER_ID, GROUP_ID}, process.env, this.opts)
         });
     };
 
@@ -75,7 +78,7 @@ ShedEnvironment = function(options, userCwd) {
         proc.spawn(cmd, args, {
             stdio: "inherit",
             cwd,
-            env: Object.assign({}, process.env, this.opts)
+            env: Object.assign({USER_ID, GROUP_ID}, process.env, this.opts)
         });
     };
 
