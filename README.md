@@ -3,13 +3,18 @@ Shed
 
 simple local PHP development
 
+**WARNING: This project started as a PHP project and is still in the process of
+being ported to Javascript. The Javascript version is mostly untested,
+unfinished, and undocumented. You might want to wait.**
+
+
 Quick Start
 -----------
 
-1. You need [Docker](https://www.docker.com/) and [Composer](https://getcomposer.org/) installed.
-2. `composer global require shed`
-3. `shed config home $HOME/Sites`
-3. `shed up -d`
+1. You need [Docker](https://www.docker.com/) and [NPM](https://www.npmjs.com/) installed.
+2. `npm install -g shed-host`
+3. Edit your shed .env to specify your sites folder.
+4. `shed up -d`
 
 Introduction
 ------------
@@ -27,31 +32,12 @@ It's designed to provide a set-it-and-forget-it platform for local, PHP developm
 Setup
 -----
 
-To run Shed, you only need to be able to run [Docker](https://www.docker.com/) and [Composer](https://getcomposer.org). Shed is not tested on Windows yet, but Shed plans to support Windows, Linux, and OS X.
+To run Shed, you only need to be able to run [Docker](https://www.docker.com/) and [NPM](https://www.npmjs.com/). Shed is not tested on Windows yet, but Shed plans to support Windows, Linux, and OS X.
 
 
 ### Default Enviroment
 
-There's only one setting that must be set:
-
-```
-shed config home $HOME/Sites
-```
-
-This specifies which folder shed should look in for your projects or sites.
-
-By default, Shed assumes that within each project folder, there will be a `public/` subfolder that Shed should use as a the **document root**. If you'd rather default to something other than public, you can change it:
-
-```
-shed config docroot html
-```
-
-Lastly, if you don't want to run Shed on port 80, you can change that too:
-
-```
-shed config port 8000
-```
-
+There is a `.env` file in the shed's directory that must be edited by hand for now, until `shed config` is ported over from the PHP version.
 
 Usage
 -----

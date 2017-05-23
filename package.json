@@ -1,0 +1,31 @@
+{
+  "name": "shed-host",
+  "version": "0.8.0",
+  "description": "CLI app for running and managing a Shared Hosting Environment on Docker",
+  "author": "Kevin Hamer <kevin.hamer@gmail.com> (http://www.shed.host)",
+  "license": "Apache-2.0",
+  "homepage": "http://www.shed.host/",
+  "bugs": {
+    "url": "https://github.com/shedhost/shed/issues"
+  },
+
+  "main": "shed.js",
+  "bin": {
+    "shed": "./shed.js"
+  },
+  "preferGlobal": true,
+
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shedhost/shed.git"
+  },
+  "dependencies": {
+    "commander": "^2.9.0",
+    "dotenv": "^4.0.0",
+    "graceful-readlink": "^1.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
