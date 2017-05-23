@@ -2,7 +2,7 @@ version: "2"
 
 services:
   apache:
-    image: "shedhost/apache:1.2"
+    image: "shedhost/apache:1.2.0"
     restart: unless-stopped
 
     environment:
