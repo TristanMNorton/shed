@@ -24,7 +24,7 @@ ShedEnvironment = function(options, userCwd) {
     let idFor = function (name) {
         return proc.execSync(
             `docker-compose ps -q ${name}`,
-            {cwd}
+            {cwd, env: {USER_ID, GROUP_ID}}
         ).toString().trim();
     };
 
