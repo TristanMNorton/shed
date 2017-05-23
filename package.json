@@ -1,6 +1,6 @@
 {
   "name": "shed-host",
-  "version": "0.8.0",
+  "version": "2.0.1",
   "description": "CLI app for running and managing a Shared Hosting Environment on Docker",
   "author": "Kevin Hamer <kevin.hamer@gmail.com> (http://www.shed.host)",
   "license": "Apache-2.0",
