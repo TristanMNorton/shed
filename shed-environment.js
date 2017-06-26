@@ -58,7 +58,12 @@ ShedEnvironment = function(options, userCwd) {
      */
     this.runInContainer = function (cmd, args) {
         let id = idFor(options.container);
-        args = ["exec", "-it", id].concat(cmd, args);
+
+        if (process.stdin.isTTY) {
+            args = ["exec", "-it", id].concat(cmd, args);
+        } else {
+            args = ["exec", "-i", id].concat(cmd, args);
+        }
 
         proc.spawn("docker", args, {
             stdio: "inherit",
