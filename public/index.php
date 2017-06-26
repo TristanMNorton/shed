@@ -31,8 +31,8 @@ $sites = array_map(
         <section>
             <h2>Databases</h2>
             <ul>
-                <li><a href="/adminer/adminer/?server=mysql&username=root">MySQL</a></li>
-                <li><a href="/adminer/adminer/?pgsql=postgres&username=postgres">PostgreSQL</a></li>
+                <li><a href="/adminer/?server=mysql&username=root">MySQL</a></li>
+                <li><a href="/adminer/?pgsql=postgres&username=postgres">PostgreSQL</a></li>
             </ul>
         </section>
 
