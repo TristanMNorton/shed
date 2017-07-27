@@ -10,7 +10,7 @@ const shedEnv   = require("./shed-environment");
 const commander = require("commander");
 
 /**
- * consants
+ * constants
  */
 const composeCommands = ['start', 'stop', 'up', 'down', 'ps'];
 
@@ -91,6 +91,19 @@ commander
         let env = new shedEnv(commander.opts(), process.cwd);
         env.runInContainer("bash", commander.rawCommandArgs());
     });
+
+/**
+ * shed php
+ */
+commander
+    .command("php")
+    .description("Run the PHP cli within the apache container, for use with artisan or other scripts.")
+    .allowUnknownOption()
+    .action(cmd => {
+        let env = new shedEnv(commander.opts(), process.cwd);
+        env.runInContainer("php", commander.rawCommandArgs());
+    });
+
 
 /**
  * shed mysql

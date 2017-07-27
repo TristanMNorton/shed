@@ -58,14 +58,20 @@ ShedEnvironment = function(options, userCwd) {
      */
     this.runInContainer = function (cmd, args) {
         let id = idFor(options.container);
+        let userCwd = process.cwd();
 
-        if (process.stdin.isTTY) {
-            args = ["exec", "-it", id].concat(cmd, args);
-        } else {
-            args = ["exec", "-i", id].concat(cmd, args);
+        if (userCwd.startsWith(options.sites)) {
+            userCwd = userCwd.replace(options.sites, '/var/www');
         }
 
-        proc.spawn("docker", args, {
+        proc.spawn("docker", [
+            'exec',
+            process.stdin.isTTY ? '-it' : '-i',
+            '677',
+            'bash',
+            '-c',
+            ['cd', userCwd + ';', cmd].concat(args).join(' ')
+        ], {
             stdio: "inherit",
             cwd,
             env: Object.assign({USER_ID, GROUP_ID}, process.env, this.opts)
