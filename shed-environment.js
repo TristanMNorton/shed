@@ -67,7 +67,7 @@ ShedEnvironment = function(options, userCwd) {
         proc.spawn("docker", [
             'exec',
             process.stdin.isTTY ? '-it' : '-i',
-            '677',
+            id,
             'bash',
             '-c',
             ['cd', userCwd + ';', cmd].concat(args).join(' ')
